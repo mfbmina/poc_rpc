@@ -37,10 +37,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer conn.Close()
 
 	h := new(Handler)
-	rpc.Register(h)
 	fmt.Println("Listening on... ", conn.Addr())
-	defer conn.Close()
-	rpc.Accept(conn)
+	s := rpc.NewServer()
+	s.Register(h)
+	s.Accept(conn)
 }
