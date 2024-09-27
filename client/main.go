@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"net/rpc"
 	"os"
@@ -19,20 +18,20 @@ func main() {
 	}
 
 	for {
-		fmt.Println("Enter text: ")
+		log.Println("Please, inform the message:")
 
 		scanner := bufio.NewScanner(os.Stdin)
 		scanner.Scan()
 
 		args := Args{Message: scanner.Text()}
-		fmt.Println("Sent message: ", args.Message)
+		log.Println("Sent message:", args.Message)
 		reply := &Args{}
 		err = client.Call("Handler.Ping", args, reply)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		fmt.Println("Received message: ", reply.Message)
-		fmt.Println("-------------------------")
+		log.Println("Received message:", reply.Message)
+		log.Println("-------------------------")
 	}
 }

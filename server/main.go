@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net"
 	"net/rpc"
@@ -14,7 +13,7 @@ type Args struct {
 type Handler int
 
 func (h *Handler) Ping(args *Args, reply *Args) error {
-	fmt.Println("Received message: ", args.Message)
+	log.Println("Received message:", args.Message)
 
 	switch args.Message {
 	case "ping", "Ping", "PING":
@@ -23,7 +22,7 @@ func (h *Handler) Ping(args *Args, reply *Args) error {
 		reply.Message = "I don't understand"
 	}
 
-	fmt.Println("Sending message: ", reply.Message)
+	log.Println("Sending message:", reply.Message)
 	return nil
 }
 
@@ -40,7 +39,8 @@ func main() {
 	defer conn.Close()
 
 	h := new(Handler)
-	fmt.Println("Listening on... ", conn.Addr())
+	log.Printf("Server listening at %v", conn.Addr())
+
 	s := rpc.NewServer()
 	s.Register(h)
 	s.Accept(conn)
