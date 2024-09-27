@@ -1,4 +1,4 @@
-# POC RPC
+# PoC RPC
 
 Used as a PoC for:
 - [Blog post PT-BR](https://mfbmina.dev/posts/golang-grpc/)
